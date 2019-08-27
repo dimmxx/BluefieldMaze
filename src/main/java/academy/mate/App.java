@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class App {
+
+    static int[][] mazeInt;
+
     public static void main(String[] args) {
 
         BufferReaderInput bufferReaderInput = new BufferReaderInput();
@@ -17,7 +20,7 @@ public class App {
             maze[i] = list.get(i).toCharArray();
         }
 
-        int[][] mazeInt = new int[maze.length][];
+        mazeInt = new int[maze.length][];
         for (int i = 0; i < mazeInt.length; i++) {
             mazeInt[i] = new int[maze[i].length];
         }
@@ -71,13 +74,73 @@ public class App {
 
         printMaze(mazeInt);
 
-        
+        int exitY = -1;
+        int exitX = -1;
+        for (int i = 0; i < mazeInt.length; i++) {
+            for (int j = 0; j < mazeInt[i].length; j++) {
+                if (mazeInt[i][j] == -3) {
+                    exitY = i;
+                    exitX = j;
+                }
+            }
+        }
+
+        findBackPath(exitY, exitX);
+        System.out.println(sb.toString());
 
 
 
 
 
+    }
 
+    private static void printMaze(int[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println();
+            for (int j = 0; j < array[i].length; j++) {
+                System.out.printf("|%2d", array[i][j]);
+            }
+        }
+        System.out.println();
+    }
+
+    private static StringBuilder sb = null;
+
+    private static void findBackPath(int pointY, int pointX) {
+
+        int up = -2;
+        int down = -2;
+        int right = -2;
+        int left = -2;
+
+        try{
+            up = mazeInt[pointY - 1][pointX];
+        }catch (ArrayIndexOutOfBoundsException e){
+        }
+        try{
+            down = mazeInt[pointY + 1][pointX];
+        }catch (ArrayIndexOutOfBoundsException e){
+        }
+        try{
+            right = mazeInt[pointY][pointX + 1];
+        }catch (ArrayIndexOutOfBoundsException e){
+        }
+        try{
+            left = mazeInt[pointY][pointX - 1];
+        }catch (ArrayIndexOutOfBoundsException e){
+        }
+
+
+        Math.min(Math.min(up, down), Math.min(left, right));
+
+
+        if(up > 0 & up <= down & up <= left & up <= right) sb.append("d, ");
+        if(left > 0 & left <= down & left <= up & left <= right) sb.append("r, ");
+        if(right > 0 && right <= down & right <= up & right <= left) sb.append("l, ");
+        if(down > 0 & down <= left & down <= up & down <= right) sb.append("u, ");
+    }
+
+}
 
 //        for(in}                                        t i = 0; i < 1000; i++){
 //            System.out.println(i + ". " + (char)i);
@@ -93,18 +156,3 @@ public class App {
 //        outUnicode.println(unicode);
 //
 //        System.out.println("hello");
-
-
-    }
-
-    private static void printMaze(int[][] array){
-        for(int i = 0; i < array.length; i++){
-            System.out.println();
-            for(int j = 0; j < array[i].length; j++){
-                System.out.printf("|%2d", array[i][j]);
-            }
-        }
-        System.out.println();
-    }
-
-}
