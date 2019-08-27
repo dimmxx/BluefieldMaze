@@ -130,13 +130,21 @@ public class App {
         }catch (ArrayIndexOutOfBoundsException e){
         }
 
-
         Math.min(Math.min(up, down), Math.min(left, right));
 
 
         if(up > 0 & up <= down & up <= left & up <= right) sb.append("d, ");
         if(left > 0 & left <= down & left <= up & left <= right) sb.append("r, ");
-        if(right > 0 && right <= down & right <= up & right <= left) sb.append("l, ");
+        if(right > 0 &&
+                right <= down & down > 0 &
+                right <= up & up > 0 &
+                right <= left & left > 0) sb.append("l, ");
+
+
+
+
+
+
         if(down > 0 & down <= left & down <= up & down <= right) sb.append("u, ");
     }
 
