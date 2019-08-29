@@ -2,13 +2,12 @@ package academy.mate;
 
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class App {
 
-    static int[][] mazeInt;
+    private static int[][] mazeInt;
+    private static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
 
@@ -85,12 +84,9 @@ public class App {
             }
         }
 
+
         findBackPath(exitY, exitX);
         System.out.println(sb.toString());
-
-
-
-
 
     }
 
@@ -104,51 +100,61 @@ public class App {
         System.out.println();
     }
 
-    private static StringBuilder sb = null;
-
     private static void findBackPath(int pointY, int pointX) {
 
-        int up = -2;
-        int down = -2;
-        int right = -2;
-        int left = -2;
+        Integer[] up = new Integer[3];
+        Integer[] down = new Integer[3];
+        Integer[] left = new Integer[3];
+        Integer[] right = new Integer[3];
+        up[0] = -2;
+        down[0] = -2;
+        left[0] = -2;
+        right[0] = -2;
 
         try{
-            up = mazeInt[pointY - 1][pointX];
+            up[0] = mazeInt[pointY - 1][pointX];
+            up[1] = pointY - 1;
+            up[2] = pointX;
         }catch (ArrayIndexOutOfBoundsException e){
         }
         try{
-            down = mazeInt[pointY + 1][pointX];
+            down[0] = mazeInt[pointY + 1][pointX];
+            down[1] = pointY + 1;
+            down[2] = pointX;
         }catch (ArrayIndexOutOfBoundsException e){
         }
         try{
-            right = mazeInt[pointY][pointX + 1];
+            left[0] = mazeInt[pointY][pointX - 1];
+            left[1] = pointY;
+            left[2] = pointX - 1;
         }catch (ArrayIndexOutOfBoundsException e){
         }
         try{
-            left = mazeInt[pointY][pointX - 1];
+            right[0] = mazeInt[pointY][pointX + 1];
+            right[1] = pointY;
+            right[2] = pointX + 1;
         }catch (ArrayIndexOutOfBoundsException e){
         }
 
-        Math.min(Math.min(up, down), Math.min(left, right));
+        TreeMap<String, Integer[]> map = new TreeMap<>();
+
+        if (up[0] > 0) map.put("u", up);
+        if (down[0] > 0) map.put("d", down);
+        if (right[0] > 0) map.put("r", right);
+        if (left[0] > 0) map.put("l", left);
+
+        sb.append(map.firstEntry().getKey());
+
+        if(up[0] != 0 && down[0] != 0 && right[0] != 0 && left[0] != 0){
+            findBackPath(map.firstEntry().getValue()[1], map.firstEntry().getValue()[2]);
+        }
 
 
-        if(up > 0 & up <= down & up <= left & up <= right) sb.append("d, ");
-        if(left > 0 & left <= down & left <= up & left <= right) sb.append("r, ");
-        if(right > 0 &&
-                right <= down & down > 0 &
-                right <= up & up > 0 &
-                right <= left & left > 0) sb.append("l, ");
 
-
-
-
-
-
-        if(down > 0 & down <= left & down <= up & down <= right) sb.append("u, ");
     }
 
 }
+
 
 //        for(in}                                        t i = 0; i < 1000; i++){
 //            System.out.println(i + ". " + (char)i);
