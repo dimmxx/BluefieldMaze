@@ -2,11 +2,19 @@ package academy.mate;
 
 import java.util.List;
 
-public class FindPathInputReaderFile extends AbstractFindPathInputReader {
+public class FindPathInputReaderStdIn extends AbstractFindPathInputReader{
+
 
 
     @Override
     protected List<String> read(String source) {
+
+
+
+
+
+
+
         return null;
     }
 }

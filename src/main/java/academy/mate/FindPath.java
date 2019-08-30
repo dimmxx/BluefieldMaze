@@ -11,9 +11,9 @@ public class FindPath {
     private String[][] maze;
     private StringBuilder sb = new StringBuilder();
     private TreeMap<Integer, Move> map = new TreeMap<>();
+    private int cellNumber;
 
-
-    public FindPath(List<String> list) {
+    protected FindPath(List<String> list) {
         this.list = list;
     }
 
@@ -27,6 +27,11 @@ public class FindPath {
 
         printMaze(maze);
 
+        //calculating the quantity of all the cells in the maze
+        for (int i = 0; i < maze.length; i++){
+            cellNumber += maze[i].length;
+        }
+
         //making int waves to fill the maze in
         int iteration = 0;
         boolean exitFound = false;
@@ -36,6 +41,7 @@ public class FindPath {
             }
         }
         while (!exitFound) {
+            if(iteration > cellNumber & !exitFound) return "\nThere is no possible way out from the maze";
             for (int i = 0; i < maze.length; i++) {
                 for (int j = 0; j < maze[i].length; j++) {
                     String cell = maze[i][j];
@@ -63,11 +69,9 @@ public class FindPath {
                     }
                 }
             }
+
             iteration++;
         }
-
-
-        printMaze(maze);
 
         //defining exit coordinates
         int exitY = -1;
@@ -80,11 +84,8 @@ public class FindPath {
                 }
             }
         }
-
         findBackPath(exitY, exitX);
-        System.out.println(sb.toString());
-
-        return null;
+        return sb.reverse().toString();
     }
 
     private void findBackPath(int pointY, int pointX) {
@@ -100,7 +101,7 @@ public class FindPath {
             up.setValue(Integer.parseInt(maze[pointY - 1][pointX]));
             up.setPointY(pointY - 1);
             up.setPointX(pointX);
-            up.setMove("u");
+            up.setMove("d"); //d - down. Not up because the reversed string will be returned from the start to the exit
         }catch (ArrayIndexOutOfBoundsException e){
         }catch (NumberFormatException e){
         }
@@ -108,7 +109,7 @@ public class FindPath {
             down.setValue(Integer.parseInt(maze[pointY + 1][pointX]));
             down.setPointY(pointY + 1);
             down.setPointX(pointX);
-            down.setMove("d");
+            down.setMove("u");
         }catch (ArrayIndexOutOfBoundsException e){
         }catch (NumberFormatException e){
         }
@@ -116,7 +117,7 @@ public class FindPath {
             left.setValue(Integer.parseInt(maze[pointY][pointX - 1]));
             left.setPointY(pointY);
             left.setPointX(pointX - 1);
-            left.setMove("l");
+            left.setMove("r");
         }catch (ArrayIndexOutOfBoundsException e){
         }catch (NumberFormatException e){
         }
@@ -124,7 +125,7 @@ public class FindPath {
             right.setValue(Integer.parseInt(maze[pointY][pointX + 1]));
             right.setPointY(pointY);
             right.setPointX(pointX + 1);
-            right.setMove("r");
+            right.setMove("l");
         }catch (ArrayIndexOutOfBoundsException e){
         }catch (NumberFormatException e){
         }
@@ -155,8 +156,6 @@ public class FindPath {
         sb.append(map.firstEntry().getValue().getMove());
 
         findBackPath(map.firstEntry().getValue().getPointY(), map.firstEntry().getValue().getPointX());
-
-
     }
 
 
