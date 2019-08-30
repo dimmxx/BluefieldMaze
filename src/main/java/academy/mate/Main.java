@@ -5,11 +5,12 @@ public class Main {
     public static void main(String[] args) {
 
 
-        int iteration = 0;
+        Integer a = null;
+        Integer b = 1;
 
-
-
-        System.out.println(Character.forDigit(iteration, 10));
+        if(b > a){
+            System.out.println(b);
+        }
     }
 
 

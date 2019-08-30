@@ -14,6 +14,14 @@ public class App {
         BufferReaderInput bufferReaderInput = new BufferReaderInput();
         List<String> list = new ArrayList<>();
         list = bufferReaderInput.readFromFile("mazeSmall.maze");
+
+        FindPath findPath = new FindPath(list);
+        findPath.findPath();
+
+
+
+
+
         char[][] maze = new char[list.size()][];
         for (int i = 0; i < maze.length; i++) {
             maze[i] = list.get(i).toCharArray();
@@ -32,6 +40,7 @@ public class App {
                 if (maze[i][j] == 'X') mazeInt[i][j] = -3;
             }
         }
+
         int iteration = 0;
         boolean exitFound = false;
 
@@ -66,7 +75,7 @@ public class App {
             iteration++;
         }
 
-        System.out.println();
+        System.out.println("\n---------------------------------------------");
         for (int i = 0; i < maze.length; i++) {
             System.out.println(maze[i]);
         }
@@ -145,9 +154,10 @@ public class App {
 
         sb.append(map.firstEntry().getKey());
 
-        if(up[0] != 0 && down[0] != 0 && right[0] != 0 && left[0] != 0){
-            findBackPath(map.firstEntry().getValue()[1], map.firstEntry().getValue()[2]);
+        for(int i = 0; i < map.firstEntry().getValue()[0]; i++ ){
+
         }
+
 
 
 
