@@ -1,7 +1,7 @@
 package academy.mate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import academy.mate.model.Move;
+
 import java.util.List;
 import java.util.TreeMap;
 
@@ -10,6 +10,8 @@ public class FindPath {
     private List<String> list;
     private String[][] maze;
     private StringBuilder sb = new StringBuilder();
+    private TreeMap<Integer, Move> map = new TreeMap<>();
+
 
     public FindPath(List<String> list) {
         this.list = list;
@@ -87,62 +89,72 @@ public class FindPath {
 
     private void findBackPath(int pointY, int pointX) {
 
-        Integer[] up = new Integer[3];
-        Integer[] down = new Integer[3];
-        Integer[] left = new Integer[3];
-        Integer[] right = new Integer[3];
+        map.clear();
+
+        Move up = new Move();
+        Move down = new Move();
+        Move left = new Move();
+        Move right = new Move();
 
         try{
-            up[0] = Integer.parseInt(maze[pointY - 1][pointX]);
-            up[1] = pointY - 1;
-            up[2] = pointX;
+            up.setValue(Integer.parseInt(maze[pointY - 1][pointX]));
+            up.setPointY(pointY - 1);
+            up.setPointX(pointX);
+            up.setMove("u");
         }catch (ArrayIndexOutOfBoundsException e){
         }catch (NumberFormatException e){
         }
         try{
-            down[0] = Integer.parseInt(maze[pointY + 1][pointX]);
-            down[1] = pointY + 1;
-            down[2] = pointX;
+            down.setValue(Integer.parseInt(maze[pointY + 1][pointX]));
+            down.setPointY(pointY + 1);
+            down.setPointX(pointX);
+            down.setMove("d");
         }catch (ArrayIndexOutOfBoundsException e){
         }catch (NumberFormatException e){
         }
         try{
-            left[0] = Integer.parseInt(maze[pointY][pointX - 1]);
-            left[1] = pointY;
-            left[2] = pointX - 1;
+            left.setValue(Integer.parseInt(maze[pointY][pointX - 1]));
+            left.setPointY(pointY);
+            left.setPointX(pointX - 1);
+            left.setMove("l");
         }catch (ArrayIndexOutOfBoundsException e){
         }catch (NumberFormatException e){
         }
         try{
-            right[0] = Integer.parseInt(maze[pointY][pointX + 1]);
-            right[1] = pointY;
-            right[2] = pointX + 1;
+            right.setValue(Integer.parseInt(maze[pointY][pointX + 1]));
+            right.setPointY(pointY);
+            right.setPointX(pointX + 1);
+            right.setMove("r");
         }catch (ArrayIndexOutOfBoundsException e){
         }catch (NumberFormatException e){
         }
 
-        if((up[0] != null && up[0].equals("0"))
-                || (down[0] != null && down[0].equals("0"))
-                || (right[0] != null && right.equals("0"))
-                || (left[0] != null && left.equals("0"))) return;
+        //the condition to exit the recursion
+        if(up.getValue() != null && up.getValue() == 0){
+            sb.append(up.getMove());
+            return;
+        }
+        if(down.getValue() != null && down.getValue() == 0){
+            sb.append(down.getMove());
+            return;
+        }
+        if(right.getValue() != null && right.getValue() == 0){
+            sb.append(right.getMove());
+            return;
+        }
+        if(left.getValue() != null && left.getValue() == 0){
+            sb.append(left.getMove());
+            return;
+        }
 
+        if (up.getValue() !=null) map.put(up.getValue(), up);
+        if (down.getValue() !=null) map.put(down.getValue(), down);
+        if (right.getValue() !=null) map.put(right.getValue(), right);
+        if (left.getValue() !=null) map.put(left.getValue(), left);
 
-        TreeMap<String, Integer[]> map = new TreeMap<>();
+        sb.append(map.firstEntry().getValue().getMove());
 
-        if (up[0] !=null) map.put("u", up);
-        if (down[0] !=null) map.put("d", down);
-        if (right[0] !=null) map.put("r", right);
-        if (left[0] !=null) map.put("l", left);
-
-        sb.append(map.firstEntry().getKey());
-
-        //findBackPath(map.firstEntry().getValue()[1], map.firstEntry().getValue()[2]);
-
-
-
-
-
-
+        findBackPath(map.firstEntry().getValue().getPointY(), map.firstEntry().getValue().getPointX());
 
 
     }
