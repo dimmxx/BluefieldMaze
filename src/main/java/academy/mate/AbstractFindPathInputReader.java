@@ -6,6 +6,7 @@ import java.util.List;
 public abstract class AbstractFindPathInputReader {
 
     protected BufferedReader bufferedReader;
+    protected List<String> list;
 
     protected abstract List<String> read(String source);
 
