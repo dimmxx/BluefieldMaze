@@ -11,8 +11,8 @@ public class App {
 
     public static void main(String[] args) {
 
-        BufferReaderInput bufferReaderInput = new BufferReaderInput();
-        List<String> list = bufferReaderInput.readFromFile("mazeSmall.maze");;
+        AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderFile();
+        List<String> list = findPathInputReader.read("mazeSmall.maze");;
 
         FindPath findPath = new FindPath(list);
         System.out.println("\n" + findPath.findPath());

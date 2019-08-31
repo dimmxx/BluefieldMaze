@@ -9,6 +9,8 @@ public class FindPathInputReaderStdIn extends AbstractFindPathInputReader{
     @Override
     protected List<String> read(String source) {
 
+        bufferedReader =
+
 
 
 
