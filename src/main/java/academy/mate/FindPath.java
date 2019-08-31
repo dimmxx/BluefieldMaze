@@ -73,6 +73,8 @@ public class FindPath {
             iteration++;
         }
 
+        printMaze(maze);
+
         //defining exit coordinates
         int exitY = -1;
         int exitX = -1;
@@ -174,12 +176,12 @@ public class FindPath {
 
     private void printMaze(String[][] array) {
         for (int i = 0; i < array.length; i++) {
-            System.out.println();
+            System.out.println("|");
             for (int j = 0; j < array[i].length; j++) {
-                System.out.print(array[i][j]);
+                System.out.printf("|%2s%1s", array[i][j], "");
             }
         }
-        System.out.println();
+        System.out.println("|");
     }
 
 

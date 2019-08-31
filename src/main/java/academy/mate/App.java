@@ -19,13 +19,31 @@ public class App {
 //        FindPath findPath = new FindPath(list);
 //        System.out.println("\n" + findPath.findPath());
 //
-        AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderStdIn();
-        List<String> list = findPathInputReader.read("StdIn");
 
-        System.out.println(list);
-        System.out.println(CheckMaze.checkMaze(list, true));
 
-       System.out.println("\n" + new FindPath(list).findPath());
+        if(true){
+            AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderFile();
+
+            List<String> list = findPathInputReader.read("mazeMedium.maze");
+            if(CheckMaze.checkMaze(list, true)){
+                System.out.println("\n" + new FindPath(list).findPath());
+            } else System.out.println("Bad maze");
+        }
+
+
+
+
+
+
+        if(false) {
+            AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderStdIn();
+            List<String> list = findPathInputReader.read("StdIn");
+
+            System.out.println(list);
+            System.out.println(CheckMaze.checkMaze(list, true));
+
+            System.out.println("\n" + new FindPath(list).findPath());
+        }
     }
 
 }
