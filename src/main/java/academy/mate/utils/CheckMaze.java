@@ -8,25 +8,26 @@ public class CheckMaze {
 
     public static boolean checkMaze(List<String> list, boolean verifyIsRectangular) {
 
-        Pattern pattern = Pattern.compile("^[SX\\#\\.]+$");
+        Pattern pattern = Pattern.compile("^(?!.*S.*S)(?!.*X.*X)[SX.#]+$"); //https://stackoverflow.com/questions/57743346/regular-expression-for-exact-one-character-occurrence-at-any-place-of-the-string
         Matcher matcher;
+        StringBuilder stringBuilder = new StringBuilder();
 
-        if(verifyIsRectangular){
-            int lastStringLength = list.get(0).length();
-            for(int i = 1; i < list.size(); i++){
-                if(list.get(i).length() != lastStringLength){
+        if (verifyIsRectangular) {
+            int mazeLength = list.get(0).length();
+            for (int i = 1; i < list.size(); i++) {
+                if (list.get(i).length() != mazeLength) {
                     return false;
-                }else{
-                    lastStringLength = list.get(i).length();
                 }
             }
         }
 
-        for(int i = 0; i < list.size(); i++){
-            if(pattern.matcher(list.get(i)).find()) return true;
+        for (int i = 0; i < list.size(); i++) {
+            stringBuilder.append(list.get(i));
         }
-        return false;
+        matcher = pattern.matcher(stringBuilder.toString());
+
+        if (matcher.find()) {
+            return true;
+        } else return false;
     }
-
-
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public class FindPathInputReaderStdIn extends AbstractFindPathInputReader{
 
     @Override
-    protected List<String> read(String source) {
+    protected List<String> read() {
 
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         list = new ArrayList<>();

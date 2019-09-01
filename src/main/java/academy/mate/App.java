@@ -1,6 +1,7 @@
 package academy.mate;
 
 import academy.mate.utils.CheckMaze;
+import academy.mate.utils.MazeGenerator;
 
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -22,9 +23,24 @@ public class App {
 
 
         if(true){
-            AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderFile();
+            AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderGenerated();
 
-            List<String> list = findPathInputReader.read("mazeMedium.maze");
+            List<String> list = findPathInputReader.read();
+            //if(CheckMaze.checkMaze(list, true)){
+                System.out.println("\n" + new FindPath(list).findPath());
+            //} else System.out.println("Bad maze");
+
+
+        }
+
+
+
+
+
+
+        if(false){
+            AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderFile("mazeSmall.maze");
+            List<String> list = findPathInputReader.read();
             if(CheckMaze.checkMaze(list, true)){
                 System.out.println("\n" + new FindPath(list).findPath());
             } else System.out.println("Bad maze");
@@ -34,10 +50,9 @@ public class App {
 
 
 
-
         if(false) {
             AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderStdIn();
-            List<String> list = findPathInputReader.read("StdIn");
+            List<String> list = findPathInputReader.read();
 
             System.out.println(list);
             System.out.println(CheckMaze.checkMaze(list, true));

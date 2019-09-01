@@ -8,11 +8,15 @@ import java.util.List;
 
 public class FindPathInputReaderFile extends AbstractFindPathInputReader {
 
+    public FindPathInputReaderFile(String source) {
+        super(source);
+    }
+
     @Override
-    protected List<String> read(String source) {
+    protected List<String> read() {
         List<String> list = new ArrayList<>();
         try {
-            bufferedReader = new BufferedReader(new FileReader(source));
+            //bufferedReader = new BufferedReader(new FileReader(source));
             String line = bufferedReader.readLine();
             while (line != null){
                 list.add(line);

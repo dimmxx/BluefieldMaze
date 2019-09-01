@@ -1,6 +1,7 @@
 package academy.mate;
 
 import academy.mate.model.Move;
+import academy.mate.utils.PrintMaze;
 
 import java.util.List;
 import java.util.TreeMap;
@@ -25,7 +26,7 @@ public class FindPath {
             maze[i] = list.get(i).split("");
         }
 
-        printMaze(maze);
+        PrintMaze.printMaze(maze);
 
         //calculating the quantity of all the cells in the maze
         for (int i = 0; i < maze.length; i++){
@@ -73,7 +74,7 @@ public class FindPath {
             iteration++;
         }
 
-        printMaze(maze);
+        PrintMaze.printMaze(maze);
 
         //defining exit coordinates
         int exitY = -1;
@@ -161,28 +162,6 @@ public class FindPath {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void printMaze(String[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.println("|");
-            for (int j = 0; j < array[i].length; j++) {
-                System.out.printf("|%2s%1s", array[i][j], "");
-            }
-        }
-        System.out.println("|");
-    }
 
 
 
