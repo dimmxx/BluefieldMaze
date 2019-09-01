@@ -9,6 +9,6 @@ public class FindPathInputReaderGenerated extends AbstractFindPathInputReader{
 
     @Override
     protected List<String> read() {
-        return MazeGenerator.generateMaze(3, 3, "");
+        return MazeGenerator.generateMaze(10, 10, "");
     }
 }

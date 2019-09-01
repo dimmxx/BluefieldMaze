@@ -22,13 +22,13 @@ public class App {
 //
 
 
-        if(true){
+        if(false){
             AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderGenerated();
 
             List<String> list = findPathInputReader.read();
-            //if(CheckMaze.checkMaze(list, true)){
+            if(CheckMaze.checkMaze(list, true)){
                 System.out.println("\n" + new FindPath(list).findPath());
-            //} else System.out.println("Bad maze");
+            } else System.out.println("Bad maze");
 
 
         }
@@ -38,8 +38,8 @@ public class App {
 
 
 
-        if(false){
-            AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderFile("mazeSmall.maze");
+        if(true){
+            AbstractFindPathInputReader findPathInputReader = new FindPathInputReaderFile("src/main/resources/mazeSmall.maze");
             List<String> list = findPathInputReader.read();
             if(CheckMaze.checkMaze(list, true)){
                 System.out.println("\n" + new FindPath(list).findPath());

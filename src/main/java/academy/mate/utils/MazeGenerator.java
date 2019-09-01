@@ -39,9 +39,10 @@ public class MazeGenerator {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < height; i++){
             String str = Arrays.toString(maze[i]);
-            str = str.substring(1, str.length()-1).replace(",", "");
+            str = str.substring(1, str.length()-1).replace(",", "").replace(" ", "");
             list.add(str);
         }
+        System.out.println(list);
         return list;
     }
 
